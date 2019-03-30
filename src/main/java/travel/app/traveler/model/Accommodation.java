@@ -1,5 +1,7 @@
 package travel.app.traveler.model;
+
 import java.math.BigDecimal;
+import java.net.URL;
 import java.util.Objects;
 
 public final class Accommodation implements Place {
@@ -8,13 +10,15 @@ public final class Accommodation implements Place {
     private final Address address;
     private final BigDecimal price;
     private final boolean breakfast;
+    private final String imageURL;
     private Tip tip;
 
-    public Accommodation(String name, Address address, BigDecimal price, boolean breakfast) {
+    public Accommodation(String name, Address address, BigDecimal price, boolean breakfast, String imageURL) {
         this.name = name;
         this.address = address;
         this.price = price;
         this.breakfast = breakfast;
+        this.imageURL = imageURL;
     }
 
 
@@ -44,6 +48,11 @@ public final class Accommodation implements Place {
     @Override
     public BigDecimal getPrice() {
         return price;
+    }
+
+    @Override
+    public String getImageURL() {
+        return imageURL;
     }
 
     @Override

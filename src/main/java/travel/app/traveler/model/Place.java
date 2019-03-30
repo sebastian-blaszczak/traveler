@@ -1,6 +1,7 @@
 package travel.app.traveler.model;
 
 import java.math.BigDecimal;
+import java.net.URL;
 
 public interface Place {
 
@@ -10,7 +11,9 @@ public interface Place {
 
     Address getAddress();
 
-    default BigDecimal getPrice(){
+    default BigDecimal getPrice() {
         return BigDecimal.ZERO;
     }
+
+    String getImageURL();
 }

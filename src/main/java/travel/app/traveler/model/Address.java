@@ -2,7 +2,7 @@ package travel.app.traveler.model;
 
 import java.util.Objects;
 
-public final class Address {
+public final class Address{
 
     private final String city;
     private final String street;

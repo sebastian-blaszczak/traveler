@@ -16,7 +16,7 @@ public final class Day {
         this.attractions = new ArrayList<>();
     }
 
-    public void addPlace(Attraction attraction){
+    public void addAttraction(Attraction attraction){
         attractions.add(attraction);
     }
 

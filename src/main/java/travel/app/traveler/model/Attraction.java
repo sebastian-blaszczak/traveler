@@ -1,5 +1,6 @@
 package travel.app.traveler.model;
 
+import java.net.URL;
 import java.util.Objects;
 
 public final class Attraction implements Place {
@@ -7,11 +8,13 @@ public final class Attraction implements Place {
 
     private final String name;
     private final Address address;
+    private final String imageURL;
     private Tip tip;
 
-    public Attraction(String name, Address address) {
+    public Attraction(String name, Address address, String imageURL) {
         this.name = name;
         this.address = address;
+        this.imageURL = imageURL;
     }
 
     public void setTip(Tip tip) {
@@ -31,6 +34,11 @@ public final class Attraction implements Place {
     @Override
     public Address getAddress() {
         return address;
+    }
+
+    @Override
+    public String getImageURL() {
+        return imageURL;
     }
 
     @Override
