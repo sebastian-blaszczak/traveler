@@ -18,8 +18,8 @@ public class AppController {
     }
 
     @GetMapping("/")
-    public String welcome(@RequestParam(name = "name") String name) {
-        return "Welcome to traveler Request param " + name;
+    public String welcome() {
+        return "Welcome to traveler Request param ";
 
     }
 
@@ -49,14 +49,26 @@ public class AppController {
         return appService.getAccounts();
     }
 
-    @GetMapping("/accountDB")
+    @GetMapping("/accountsDB")
     public List<Account> getAccountsDB() {
         return appService.getAccountsFromDB();
     }
 
-    @RequestMapping(value = "/accountDB", params = {"firstName", "lastName"})
+    @RequestMapping(value = "/add/accountDB", params = {"firstName", "lastName"})
     public Account addAccount(@RequestParam(value = "firstName") String firstName,
                               @RequestParam(value = "lastName") String lastName) {
         return appService.addAccountToDB(firstName, lastName);
+    }
+
+    @RequestMapping(value = "/delete/accountDB", params = {"id"})
+    public Account removeAccount(@RequestParam(value = "id") Integer id) {
+        return appService.removeAccount(id);
+    }
+
+    @RequestMapping(value = "/edit/accountDB", params = {"id", "firstName", "lastName"})
+    public Account editAccount(@RequestParam(value = "id") Integer id,
+                               @RequestParam(value = "firstName") String firstName,
+                               @RequestParam(value = "lastName") String lastName) {
+        return appService.editAccount(id, firstName, lastName);
     }
 }

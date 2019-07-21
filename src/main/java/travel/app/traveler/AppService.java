@@ -16,6 +16,10 @@ import java.util.List;
 public class AppService {
 
     private List<Account> accounts = new ArrayList<>();
+    private final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+    SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+    Session session = sessionFactory.openSession();
+
 
     public Account addAccount(String name, String lastName) {
         Account account = new Account();
@@ -55,10 +59,6 @@ public class AppService {
     }
 
     public Account addAccountToDB(String firstName, String lastName) {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-
-        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         Account account = new Account();
@@ -70,20 +70,35 @@ public class AppService {
 
         Account accountAdded = session.get(Account.class, account.getId());
         session.getTransaction().commit();
-        session.close();
+
 
         return accountAdded;
     }
 
     public List<Account> getAccountsFromDB() {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-
-        Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<Account> from_account = session.createQuery("from Account").getResultList();
         session.getTransaction().commit();
-        session.close();
+
         return from_account;
+    }
+
+    public Account removeAccount(Integer id) {
+        session.beginTransaction();
+        Account accountToDelete = session.load(Account.class, id);
+        session.remove(accountToDelete);
+        session.getTransaction().commit();
+
+        return accountToDelete;
+    }
+
+    public Account editAccount(Integer id, String firstName, String lastName) {
+        session.beginTransaction();
+        Account accountToEdit = session.load(Account.class, id);
+        session.save(accountToEdit);
+        accountToEdit.setFirstName(firstName);
+        accountToEdit.setLastName(lastName);
+        session.getTransaction().commit();
+        return accountToEdit;
     }
 }
