@@ -19,7 +19,7 @@ public class AppController {
 
     @GetMapping("/")
     public String welcome() {
-        return "Welcome to traveler Request param ";
+        return "Welcome to traveler";
 
     }
 
