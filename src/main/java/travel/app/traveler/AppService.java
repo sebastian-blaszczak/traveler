@@ -66,10 +66,8 @@ public class AppService {
         account.setLastName(lastName);
 
         session.save(account);
-        session.getTransaction().commit();
-        session.close();
 
-        session.beginTransaction();
+
         Account accountAdded = session.get(Account.class, account.getId());
         session.getTransaction().commit();
         session.close();

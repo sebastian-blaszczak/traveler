@@ -49,7 +49,7 @@ public class AppController {
         return appService.getAccounts();
     }
 
-    @GetMapping("/accountsDB")
+    @GetMapping("/accountDB")
     public List<Account> getAccountsDB() {
         return appService.getAccountsFromDB();
     }
