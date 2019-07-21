@@ -8,7 +8,7 @@ class accountModelTest extends Specification {
     def "account's name's print test"() {
 
         expect:
-        account.getName() == name
+        account.getFirstName() == name
 
         where:
         account                         || name

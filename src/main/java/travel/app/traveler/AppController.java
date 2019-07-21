@@ -1,13 +1,11 @@
 package travel.app.traveler;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import travel.app.traveler.model.*;
 
 import java.math.BigDecimal;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.List;
 
 @RestController
 public class AppController {
@@ -20,13 +18,22 @@ public class AppController {
     }
 
     @GetMapping("/")
-    public String welcome(){
-        return "Welcome to traveler";
+    public String welcome(@RequestParam(name = "name") String name) {
+        return "Welcome to traveler Request param " + name;
+
     }
 
+    @RequestMapping(value = "/hello", params = {"firstName", "lastName"})
+    public @ResponseBody
+    String WelcomeUser(@RequestParam(value = "firstName") String firstName,
+                       @RequestParam(value = "lastName") String lastName) {
+        return "Welcome " + firstName + " " + lastName;
+    }
+
+
     @GetMapping("/add-account")
-    public Account addAccount() {
-        return appService.addAccount("Sebastian", "B");
+    public Account addAccount(Account account) {
+        return appService.addAccount(account.getFirstName(), account.getLastName());
     }
 
     @GetMapping("/add-trip")
@@ -35,5 +42,21 @@ public class AppController {
         trip.addDay(new Day(1,
                 new Accommodation("hotel", new Address("Warsaw", "Pulawska"), BigDecimal.ONE, true, "www.image.com/image")));
         return appService.setTripToAccount(appService.addAccount("Seb", "B"), trip);
+    }
+
+    @GetMapping("/accounts")
+    public List<Account> getAccounts() {
+        return appService.getAccounts();
+    }
+
+    @GetMapping("/accountsDB")
+    public List<Account> getAccountsDB() {
+        return appService.getAccountsFromDB();
+    }
+
+    @RequestMapping(value = "/accountDB", params = {"firstName", "lastName"})
+    public Account addAccount(@RequestParam(value = "firstName") String firstName,
+                              @RequestParam(value = "lastName") String lastName) {
+        return appService.addAccountToDB(firstName, lastName);
     }
 }

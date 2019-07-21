@@ -29,7 +29,7 @@
         <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
 
         <!-- Names the annotated entity class -->
-        <mapping class="Person"/>
+        <mapping class="travel.app.traveler.model.Account"/>
     </session-factory>
 
 </hibernate-configuration>
